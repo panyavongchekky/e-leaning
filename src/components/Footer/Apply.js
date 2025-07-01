@@ -19,7 +19,7 @@ export default function Apply() {
     e.preventDefault();
 
     emailjs
-      .send("service_x9ivb9s", "template_d8xto9e", form, "je3vjz3Ark0I3bIL")
+      .send("service_x9ivb9s", "template_d8xto9e", form, "Nje3vjz3Ark0I3b")
       .then(
         (result) => {
           console.log("SUCCESS!", result.text);
