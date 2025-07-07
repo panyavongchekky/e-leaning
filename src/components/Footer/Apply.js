@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 import Navbar from "../Navbar/Navbar";
 import emailjs from "@emailjs/browser";
+import { useTranslation } from "react-i18next";
+import i18n from "../../i18n/i18n";
 
 export default function Apply() {
+  const { t, i18n } = useTranslation();
+
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -18,17 +22,22 @@ export default function Apply() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    const templateParams = {
+      ...form,
+      user_email: "panyavongchekky44@gmail.com",
+    };
+
     emailjs
-      .send("service_x9ivb9s", "template_d8xto9e", form, "Nje3vjz3Ark0I3b")
+      .send("service_x9ivb9s", "template_d8xto9e", templateParams, "Nje3vjz3Ark0I3bIL")
       .then(
         (result) => {
           console.log("SUCCESS!", result.text);
-          alert("ส่งใบสมัครเรียบร้อยแล้ว ขอบคุณครับ!");
+          alert(t("success"));
           setForm({ name: "", email: "", position: "", message: "" });
         },
         (error) => {
-          console.error("FAILED...", error.text);
-          alert("เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง");
+          console.error("FAILED...", error?.text || error?.message || error);
+          alert(t("error"));
         }
       );
   };
@@ -38,11 +47,11 @@ export default function Apply() {
       <Navbar />
       <div className="max-w-2xl mx-auto px-6 py-16 text-gray-800">
         <h1 className="text-3xl font-bold text-center text-indigo-700 mb-8">
-          สมัครงานกับเรา
+          {t("apply_title")}
         </h1>
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label className="block text-sm font-medium mb-1">ชื่อ-นามสกุล</label>
+            <label className="block text-sm font-medium mb-1">{t("name")}</label>
             <input
               type="text"
               name="name"
@@ -53,7 +62,7 @@ export default function Apply() {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-1">อีเมล</label>
+            <label className="block text-sm font-medium mb-1">{t("email")}</label>
             <input
               type="email"
               name="email"
@@ -64,7 +73,7 @@ export default function Apply() {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-1">ตำแหน่งที่ต้องการสมัคร</label>
+            <label className="block text-sm font-medium mb-1">{t("position")}</label>
             <input
               type="text"
               name="position"
@@ -75,7 +84,7 @@ export default function Apply() {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-1">ข้อความเพิ่มเติม</label>
+            <label className="block text-sm font-medium mb-1">{t("message")}</label>
             <textarea
               name="message"
               value={form.message}
@@ -88,7 +97,7 @@ export default function Apply() {
             type="submit"
             className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-full transition"
           >
-            ส่งใบสมัคร
+            {t("submit")}
           </button>
         </form>
       </div>

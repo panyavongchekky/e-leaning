@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import i18n from "../../i18n/i18n";
 // component
 import Navbar from "../Navbar/Navbar";
+import { GRAY800 } from "../../helper";
 // const
 export default function Careers() {
   const { t } = useTranslation();
@@ -38,11 +39,11 @@ export default function Careers() {
   return (
     <>
       <Navbar />
-      <div className={`max-w-6xl mx-auto px-6 py-16 text-gray-800 ${fontClass}`}>
+      <div style={{color:GRAY800}} className={`max-w-6xl mx-auto px-6 py-16  ${fontClass}`}>
         {/* Intro */}
         <section className="mb-16 text-center">
           <h1 className="text-5xl font-bold text-indigo-600 mb-4">
-            {t("careers_title02")}
+            {t("careers_title02")}  
           </h1>
           <p className="text-lg text-gray-600 leading-relaxed">
             {t("careers_intro1")} <br />
